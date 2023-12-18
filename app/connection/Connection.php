@@ -2,20 +2,38 @@
 
 namespace app\connection;
 
-// include __DIR__.'/../../vendor/autoload.php';
 use PDO;
+use Dotenv\Dotenv;
+require_once __DIR__.'/../../vendor/autoload.php';
+
+
+$dotenv = Dotenv::createImmutable(__DIR__.'/../../');
+$dotenv->load();
+
 class Connection
 {
-    // private $data;
+    private static $dbHost;
+    private static $dbUser;
+    private static $dbPassword;
 
-    public static  function connection()
+    public static function init()
     {
-    //   return mysqli_connect('localhost','root','','biblio');
-    $conn = new PDO("mysql:host=localhost;dbname=biblio", "root", "");
-    return $conn;
+        // Access environment variables
+        self::$dbHost = $_ENV['DB_HOST'];
+        self::$dbUser = $_ENV['DB_USER'];
+        self::$dbPassword = $_ENV['DB_PASSWORD'];
+    }
+
+    public static function connection()
+    {
+        self::init();
+
+        $conn = new PDO("mysql:host={$_ENV['DB_HOST']};dbname={$_ENV['DB_NAME']}", $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
+        return $conn;
     }
 
 }
+
 $data= new connection();
 
 var_dump($data->connection());
