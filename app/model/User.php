@@ -4,13 +4,14 @@
 
 namespace app\model;
 
-include __DIR__.'/../../vendor/autoload.php';
+include __DIR__ . '/../../vendor/autoload.php';
 
 use app\connection\Connection;
 
+use PDO;
 
 
-class User  
+class User
 {
 
     private $db;
@@ -18,30 +19,29 @@ class User
     private $email;
     private $password;
 
-    public function __construct($name,$email,$password)
+    public function __construct($name, $email, $password)
     {
-        $this->db=Connection::connection();
-        $this->name=$name;
-        $this->email=$email;
-        $this->password=$password;
+        $this->db = Connection::connection();
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
     }
     public function CheckUser()
     {
-      
+
         $stmt = $this->db->prepare("select * from  users  where email= ? ");
-        $stmt->bind_param('s', $this->email);
-        $stmt->execute();
-        return  $stmt->get_result();
+        $stmt->execute([$this->email]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     public function createUser()
     {
         $stmt = $this->db->prepare("INSERT INTO users(firstName,email,password)  VALUES (?, ?, ?)");
-        $stmt->bind_param('sss', $this->name, $this->email, $this->password);
-        $stmt->execute();
+        $stmt->execute([$this->name, $this->email, $this->password]);
+       
     }
-    
 }
 
 
-$user= new User("ali","email","password");
+// $user= new User("ali","email","password");

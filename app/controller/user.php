@@ -59,7 +59,7 @@ class AuthController
         }
         $checkUser = new User(null, $email, null);
         $check = $checkUser->CheckUser();
-        if ($check->num_rows > 0) {
+        if (count($check)  > 0) {
             $_SESSION['email'] = "email exist ";
         }
 
@@ -95,8 +95,8 @@ class AuthController
         if (empty($_SESSION['email']) &&  empty($_SESSION['password'])) {
             $checkUser = new User(null, $email, $password);
             $check = $checkUser->CheckUser();
-            if ($check->num_rows > 0) {
-                $user = $check->fetch_assoc();
+            if (count($check)  > 0) {
+                $user = $check[0];
                 if (password_verify($password, $user["password"])) {
                     header("location:../../views/produit/index.php");
                 } else {
