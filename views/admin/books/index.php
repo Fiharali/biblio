@@ -1,14 +1,9 @@
 <?php
 include  __DIR__ . '/../partials/navbar.php';
-include  __DIR__ . '/../../../app/controller/user.php';
+include  __DIR__ . '/../../../app/controller/bookController.php';
 
 
-$users = $getAllUsers->AllUsers();
-// var_dump($users);
-
-// foreach($users as $user){
-//     echo $user->id ;
-// }
+$books = $getAllBooks->AllBooks();
 
 
 
@@ -110,16 +105,19 @@ $users = $getAllUsers->AllUsers();
                         id
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        username
+                        title
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Email
+                        author
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        Phone
+                        genre
                     </th>
                     <th scope="col" class="px-6 py-3 ">
-                        Budget
+                        total_copies
+                    </th>
+                    <th scope="col" class="px-6 py-3 ">
+                        available_copies
                     </th>
 
                 </tr>
@@ -127,24 +125,27 @@ $users = $getAllUsers->AllUsers();
             <tbody>
 
                 <?php
-                foreach ($users as $user) {
+                foreach ($books as $book) {
                 ?>
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td scope="col" class="px-6 py-3">
-                        <?= $user->id?>
+                        <?= $book->id?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $user->firstName .' '. $user->lastName?>
+                        <?= $book->title ?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $user->email?>
+                        <?= $book->author?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $user->phone?>
+                        <?= $book->genre?>
                     </td>
                     <td scope="col" class="px-6 py-3 ">
-                        <?= $user->budget?>
+                        <?= $book->total_copies?>
+                    </td>
+                    <td scope="col" class="px-6 py-3 ">
+                        <?= $book->available_copies?>
                     </td>
                 </tr>
                 <?php  } ?>
