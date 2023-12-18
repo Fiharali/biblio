@@ -6,15 +6,9 @@ namespace app\model;
 
 include __DIR__.'/../../vendor/autoload.php';
 
-use app\model\Connection;
+use app\connection\Connection;
 
 
-
-
-
-// spl_autoload_register (function ($class) {
-//     include  __DIR__.'/'.$class.'.php';
-//     });
 
 class User  
 {
@@ -42,7 +36,7 @@ class User
 
     public function createUser()
     {
-        $stmt = $this->db->prepare("INSERT INTO users  VALUES (null,?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO users(firstName,email,password)  VALUES (?, ?, ?)");
         $stmt->bind_param('sss', $this->name, $this->email, $this->password);
         $stmt->execute();
     }
