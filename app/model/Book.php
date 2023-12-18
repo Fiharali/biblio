@@ -10,21 +10,29 @@ use app\connection\Connection;
 
 use PDO;
 
-
+// `title`, `author`, `genre`, `description`, `publication_year`, `total_copies`, `available_copies`
 class Book
 {
 
     private $db;
-    private $name;
-    private $email;
-    private $password;
+    private $title;
+    private $author;
+    private $genre;
+    private $description;
+    private $publication_year;
+    private $total_copies;
+    private $available_copies;
 
-    public function __construct($name, $email, $password)
+    public function __construct($title,$author,$genre,$description,$publication_year,$total_copies,$available_copies)
     {
         $this->db = Connection::connection();
-        $this->name = $name;
-        $this->email = $email;
-        $this->password = $password;
+        $this->title = $title;
+        $this->author = $author;
+        $this->genre = $genre;
+        $this->description = $description;
+        $this->publication_year = $publication_year;
+        $this->total_copies = $total_copies;
+        $this->available_copies = $available_copies;
     }
 
     public function getAllBooks()
@@ -34,6 +42,14 @@ class Book
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $result;
+    }
+
+    public function add()
+    {
+        $stmt = $this->db->prepare("INSERT INTO  books VALUES (null,?,?,?,?,?,?,?) ");
+        $stmt->execute([$this->title,$this->author,$this->genre,$this->description,$this->publication_year,$this->total_copies,$this->available_copies]);
+        // $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        // return $result;
     }
 }
 

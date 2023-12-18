@@ -119,6 +119,9 @@ $books = $getAllBooks->AllBooks();
                     <th scope="col" class="px-6 py-3 ">
                         available_copies
                     </th>
+                    <th scope="col" class="px-6 py-3 ">
+                        Actions
+                    </th>
 
                 </tr>
             </thead>
@@ -146,6 +149,9 @@ $books = $getAllBooks->AllBooks();
                     </td>
                     <td scope="col" class="px-6 py-3 ">
                         <?= $book->available_copies?>
+                    </td>
+                    <td scope="col" class="px-6 py-3 ">
+                        delete -- update
                     </td>
                 </tr>
                 <?php  } ?>

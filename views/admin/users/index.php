@@ -121,6 +121,9 @@ $users = $getAllUsers->AllUsers();
                     <th scope="col" class="px-6 py-3 ">
                         Budget
                     </th>
+                    <td scope="col" class="px-6 py-3 ">
+                        Action
+                    </td>
 
                 </tr>
             </thead>
@@ -145,6 +148,9 @@ $users = $getAllUsers->AllUsers();
                     </td>
                     <td scope="col" class="px-6 py-3 ">
                         <?= $user->budget?>
+                    </td>
+                    <td scope="col" class="px-6 py-3 ">
+                        delete -- update
                     </td>
                 </tr>
                 <?php  } ?>
