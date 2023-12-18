@@ -2,7 +2,7 @@
 
 namespace app\controller;
 
-include __DIR__.'/../../vendor/autoload.php';
+include __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\User;
 
@@ -112,6 +112,14 @@ class AuthController
             exit();
         }
     }
+
+    public function AllUsers()
+    {
+
+        $allUsers = new User(null, null, null);
+        return   $allUsers->getAllUsers();
+        // var_dump($allUsers->getAllUsers());
+    }
 }
 
 
@@ -129,3 +137,7 @@ if (isset($_POST['login'])) {
     $registerController = new AuthController();
     $registerController->login($email,  $password);
 }
+
+
+$getAllUsers = new AuthController();
+// $registerController->AllUsers();

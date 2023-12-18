@@ -41,6 +41,15 @@ class User
         $stmt->execute([$this->name, $this->email, $this->password]);
        
     }
+
+    public function getAllUsers()
+    {
+
+        $stmt = $this->db->prepare("select * from  users  ");
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $result;
+    }
 }
 
 
