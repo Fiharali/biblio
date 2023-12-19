@@ -1,3 +1,23 @@
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+// if (isset($_SESSION["username"])) {
+    if ($_SESSION["isAdmin"]) {
+        // header("location:../../client");
+    } else {
+        header("location:../../client");
+    }
+// } else {
+//     header("location:../../client");
+// }
+
+//  var_dump(($_SESSION["admin"]));
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,8 +54,9 @@
                     </button>
                     <a href="https://flowbite.com" class="flex ms-2 md:me-24">
                         <!-- <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" /> -->
-                        <span
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">LOGO</span>
+                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">
+                            <?php echo $_SESSION["username"] ?>
+                        </span>
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -57,7 +78,7 @@
                                     Neil Sims
                                 </p>
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                                    neil.sims@flowbite.com
+                                    <?php echo $_SESSION["isAdmin"] ?>
                                 </p>
                             </div>
                             <ul class="py-1" role="none">
@@ -77,7 +98,7 @@
                                         role="menuitem">Earnings</a>
                                 </li>
                                 <li>
-                                    <a href="#"
+                                    <a href="../../../app/controller/logout.php"
                                         class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                                         role="menuitem">Sign out</a>
                                 </li>
@@ -127,10 +148,3 @@
             </ul>
         </div>
     </aside>
-
-
-
-
-    <!-- <?php
-    include 'footer.php';
-    ?> -->

@@ -1,5 +1,20 @@
-<?php 
-session_start();
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+if (isset($_SESSION["username"])) {
+    header("location:../client");
+} else {
+    // header("location:../../client");
+}
+// } else {
+//     header("location:../../client");
+// }
+
+//  var_dump(($_SESSION["admin"]));
 
 ?>
 <!DOCTYPE html>
@@ -108,9 +123,11 @@ session_start();
 
             <form method="post" action="../../app/controller/user.php" class="login-form">
                 <input type="email" placeholder="email address" name="email" />
-                <span><?= isset($_SESSION['email']) ? $_SESSION['email']  : '' ; $_SESSION['email'] = ''; ?></span>
+                <span><?= isset($_SESSION['email']) ? $_SESSION['email']  : '';
+                        $_SESSION['email'] = ''; ?></span>
                 <input type="password" placeholder="password" name="password" />
-                <span><?= isset($_SESSION['password']) ? $_SESSION['password']  : '' ; $_SESSION['password'] = ''; ?></span>
+                <span><?= isset($_SESSION['password']) ? $_SESSION['password']  : '';
+                        $_SESSION['password'] = ''; ?></span>
                 <button name="login" type="submit">login</button>
                 <p class="message">Not registered? <a href="register.php">Create an account</a></p>
             </form>

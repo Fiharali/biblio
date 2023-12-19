@@ -98,7 +98,17 @@ class AuthController
             if (count($check)  > 0) {
                 $user = $check[0];
                 if (password_verify($password, $user["password"])) {
-                    header("location:../../views/produit/index.php");
+                    // header("location:../../views/produit/index.php");
+                    //    var_dump( $user["name"]);
+                    $_SESSION['username'] = $user["firstName"];
+                    $_SESSION['id'] = $user["id"];
+                    if ($user["name"] == "admin") {
+                        $_SESSION['isAdmin'] = true;
+                        header("location:../../views/admin/books/index.php");
+                    } else {
+                        $_SESSION['isAdmin'] = false;
+                        header("location:../../views/produit/index.php");
+                    }
                 } else {
                     $_SESSION['password'] = "password is incorrect";
                     header("location:../../views/auth/login.php");

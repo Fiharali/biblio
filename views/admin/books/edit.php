@@ -4,8 +4,7 @@ namespace views\admin\books;
 
 session_start();
 include '../partials/navbar.php';
-
-require  __DIR__ . '/../../../app/controller/bookController.php';
+require  __DIR__ . '/../../../vendor/autoload.php';
 
 use app\controller\BookController;
 

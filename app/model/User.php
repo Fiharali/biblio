@@ -29,7 +29,7 @@ class User
     public function CheckUser()
     {
 
-        $stmt = $this->db->prepare("select * from  users  where email= ? ");
+        $stmt = $this->db->prepare("SELECT users.*,roles.name from users inner JOIN users_role on users.id=users_role.user_id INNER join roles on roles.id=users_role.role_id WHERE email = ? ");
         $stmt->execute([$this->email]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;

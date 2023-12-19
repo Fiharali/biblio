@@ -150,7 +150,7 @@ $users = $getAllUsers->AllUsers();
                         <?= $user->budget?>
                     </td>
                     <td scope="col" class="px-6 py-3 ">
-                        delete -- update
+                        <button class="bg-red-950 p-3 px-5">Ban</button>
                     </td>
                 </tr>
                 <?php  } ?>

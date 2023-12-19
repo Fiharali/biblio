@@ -1,5 +1,21 @@
-<?php 
-session_start();
+<?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+if (isset($_SESSION["username"])) {
+    header("location:../client");
+} else {
+    // header("location:../../client");
+}
+// } else {
+//     header("location:../../client");
+// }
+
+//  var_dump(($_SESSION["admin"]));
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
