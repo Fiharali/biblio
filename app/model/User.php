@@ -33,6 +33,8 @@ class User
         $stmt->execute([$this->email]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+
+        
     }
 
     public function createUser()

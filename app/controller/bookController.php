@@ -115,7 +115,7 @@ class BookController
 
 
 
-$getAllBooks = new BookController();
+$bookController = new BookController();
 // $registerController->AllUsers();
 
 if (isset($_POST['addBook'])) {

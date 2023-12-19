@@ -3,8 +3,7 @@ include  __DIR__ . '/../partials/navbar.php';
 include  __DIR__ . '/../../../app/controller/bookController.php';
 
 
-$books = $getAllBooks->AllBooks();
-
+$books = $bookController->AllBooks();
 
 
 ?>
@@ -72,34 +71,36 @@ $books = $getAllBooks->AllBooks();
 
                 <?php
                 foreach ($books as $book) {
+                    // var_dump($book->getId());
+
                 ?>
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->id?>
+                        <?= $book->getId() ?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->title ?>
+                        <?= $book->getTitle() ?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->author?>
+                        <?= $book->getAuthor() ?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->genre?>
+                        <?= $book->getGenre() ?>
                     </td>
                     <td scope="col" class="px-6 py-3 ">
-                        <?= $book->total_copies?>
+                        <?= $book->getTotalCopies() ?>
                     </td>
                     <td scope="col" class="px-6 py-3 ">
-                        <?= $book->available_copies?>
+                        <?= $book->getAvailableCopies() ?>
                     </td>
                     <td scope="col" class="px-6 py-3 flex gap-3">
                         <form method="post" action="../../../app/controller/bookController.php">
-                            <input type='hidden' value="<?=$book->id?>" name='id'>
+                            <input type='hidden' value="<?= $book->getId() ?>" name='id'>
                             <input type='submit' value="Delete" name="deleteBook" class="bg-red-950 p-3">
                         </form>
                         <form class="flex" method="post" action="edit.php">
-                            <input type='hidden' value="<?=$book->id?>" name='id'>
+                            <input type='hidden' value="<?= $book->getId() ?>" name='id'>
                             <input type='submit' value="edit" name="editBook" class="bg-red-950 p-3">
                         </form>
                     </td>

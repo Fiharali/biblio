@@ -3,6 +3,7 @@
 
 
 namespace app\model;
+// use app\model\Book;
 
 include __DIR__ . '/../../vendor/autoload.php';
 
@@ -37,13 +38,85 @@ class Book
         $this->available_copies = $available_copies;
     }
 
+
+
+    public function getId() {
+        return $this->id;
+    }
+
+
+    public function getTitle() {
+        return $this->title;
+    }
+
+    public function setTitle($title) {
+        $this->title = $title;
+    }
+
+    public function getAuthor() {
+        return $this->author;
+    }
+
+    public function setAuthor($author) {
+        $this->author = $author;
+    }
+
+    public function getGenre() {
+        return $this->genre;
+    }
+
+    public function setGenre($genre) {
+        $this->genre = $genre;
+    }
+
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    public function getPublicationYear() {
+        return $this->publication_year;
+    }
+
+    public function setPublicationYear($publication_year) {
+        $this->publication_year = $publication_year;
+    }
+
+    public function getTotalCopies() {
+        return $this->total_copies;
+    }
+
+    public function setTotalCopies($total_copies) {
+        $this->total_copies = $total_copies;
+    }
+
+    public function getAvailableCopies() {
+        return $this->available_copies;
+    }
+
+    public function setAvailableCopies($available_copies) {
+        $this->available_copies = $available_copies;
+    }
+
+
+    
+
     public function getAllBooks()
     {
-
-        $stmt = $this->db->prepare("select * from  books  ");
+        $stmt = $this->db->prepare("SELECT * FROM books");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-        return $result;
+
+        $books = [];
+        foreach ($result as $bookData) {
+            $book_instance = new Book($bookData->id,$bookData->title,$bookData->author,$bookData->genre,$bookData->description,$bookData->publication_year,$bookData->total_copies,$bookData->available_copies);
+            $books[] = $book_instance;
+        }
+
+        return $books;
     }
 
     public function add()
