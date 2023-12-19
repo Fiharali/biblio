@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     if ($_SESSION["isAdmin"]) {
         // header("location:../../client");
     } else {
-        header("location:../../client");
+        header("location:../../auth/login.php");
     }
 // } else {
 //     header("location:../../client");
