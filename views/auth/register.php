@@ -6,15 +6,14 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
 if (isset($_SESSION["username"])) {
-    header("location:../client");
-} else {
-    // header("location:../../client");
-}
-// } else {
-//     header("location:../../client");
-// }
-
-//  var_dump(($_SESSION["admin"]));
+    if (isset($_SERVER['HTTP_REFERER'])) {
+		header("Location: " . $_SERVER['HTTP_REFERER']);
+		exit();
+	} else {
+        header("location:../client");
+		exit();
+	}
+} 
 
 ?>
 <!DOCTYPE html>
