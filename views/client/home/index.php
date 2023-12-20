@@ -1,10 +1,10 @@
 <?php
 // include  __DIR__ . '/../partials/navbar.php';
 include  __DIR__ . '/../../../app/controller/bookController.php';
-// include  __DIR__ . '/../../../vendor/autoload.php';
-// use app\controller\BookController;
+include  __DIR__ . '/../../../vendor/autoload.php';
+use app\controller\BookController;
 // session_start();
-
+$bookController=new BookController();
 $books = $bookController->AllBooks();
 
 

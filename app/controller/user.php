@@ -67,8 +67,11 @@ class AuthController
         if (empty($_SESSION['name']) &&  empty($_SESSION['email']) && empty($_SESSION['password']) && empty($_SESSION['confirm_password'])) {
             $password = password_hash($password, PASSWORD_DEFAULT);
             $checkUser = new User($name, $email, $password);
-            $checkUser->createUser();
-            header("location:../../views/produit/index.php");
+            $lastInsertId=$checkUser->createUser();
+            $_SESSION['username'] = $name;
+            $_SESSION['isAdmin'] = false;
+            $_SESSION['id'] = $lastInsertId;
+            header("location:../../views/client/home/index.php");
             exit();
         } else {
             header("location:../../views/auth/register.php");
@@ -107,7 +110,7 @@ class AuthController
                         header("location:../../views/admin/books/index.php");
                     } else {
                         $_SESSION['isAdmin'] = false;
-                        header("location:../../views/produit/index.php");
+                        header("location:../../views/client/home/index.php");
                     }
                 } else {
                     $_SESSION['password'] = "password is incorrect";

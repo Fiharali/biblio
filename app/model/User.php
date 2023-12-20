@@ -29,7 +29,7 @@ class User
     public function CheckUser()
     {
 
-        $stmt = $this->db->prepare("SELECT users.*,roles.name from users inner JOIN users_role on users.id=users_role.user_id INNER join roles on roles.id=users_role.role_id WHERE email = ? ");
+        $stmt = $this->db->prepare("SELECT * from users inner JOIN roles on users.role_id=roles.id WHERE email = ? ");
         $stmt->execute([$this->email]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -41,6 +41,8 @@ class User
     {
         $stmt = $this->db->prepare("INSERT INTO users(firstName,email,password)  VALUES (?, ?, ?)");
         $stmt->execute([$this->name, $this->email, $this->password]);
+        $lastInsertId = $this->db->lastInsertId();
+        return $lastInsertId;
        
     }
 
