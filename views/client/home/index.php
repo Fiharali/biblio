@@ -175,8 +175,10 @@
                     </div>
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-                        </div>
+                        <form method="post" action="book.php" class="ms-5">
+                            <input type="hidden" value="<?= $book->getId() ?>" name="id" />
+                            <input type="submit" value="See" name="see" class="btn btn-outline-dark mt-auto ms-4" />
+                        </form>
                     </div>
                 </div>
             </div>

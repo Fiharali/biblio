@@ -1,6 +1,6 @@
 <?php
 
-namespace views\admin\books;
+// namespace views\admin\books;
 
 session_start();
 include '../partials/navbar.php';
