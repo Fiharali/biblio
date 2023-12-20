@@ -33,7 +33,7 @@ CREATE TABLE books (
 CREATE TABLE reservations (
     id int PRIMARY KEY AUTO_INCREMENT,
     description text,
-    reservation_date date,
+    reservation_date date  DEFAULT CURRENT_DATE,
     return_date date,
     is_returned int,
     user_id int,
