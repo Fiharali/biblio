@@ -37,6 +37,9 @@ class Reservation
         $stmt = $this->db->prepare("INSERT INTO reservations( description, reservation_date, return_date, is_returned, user_id, book_id) VALUES (?, ?, ?,0, ?, ?)");
         $stmt->execute([$this->description, $this->reservation_date, $this->return_date, $this->user_id, $this->book_id]);
 
+        $stmt2 = $this->db->prepare("update books set available_copies = available_copies-1 where id =?");
+        $stmt2->execute([ $this->book_id]);
+
        
     }
 
