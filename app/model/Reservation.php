@@ -48,6 +48,15 @@ class Reservation
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $result;
     }
+
+    public function getUserReservation()
+    {
+
+        $stmt = $this->db->prepare("select * from  reservations INNER JOIN books on reservations.book_id=books.id  where user_id= ? ");
+        $stmt->execute([ $this->user_id]);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        return $result;
+    }
 }
 
 

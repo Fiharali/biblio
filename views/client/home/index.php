@@ -1,19 +1,29 @@
-<?php 
-    
-    include '../partials/navbar.php'
-    ?>
+<?php
+
+include '../partials/navbar.php';
+
+include  __DIR__ . '/../../../vendor/autoload.php';
+
+use app\controller\ReservationController;
+// session_start();
+if (isset($_SESSION['id'])) {
+    $userReservations = new ReservationController();
+    $userReservation = $userReservations->userReservation($_SESSION['id']);
+}
+?>
 <!-- Masthead-->
 <header class="masthead">
     <div class="container px-4 px-lg-5 h-100">
         <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
             <div class="col-lg-8 align-self-end">
-                <h1 class="text-white font-weight-bold"> SmartLibra </h1>
+                <h1 class="text-white font-weight-bold"> SmartLibra <?=$_SESSION['id']?> </h1>
                 <hr class="divider" />
             </div>
             <div class="col-lg-8 align-self-baseline">
                 <p class="text-white-75 mb-5">Explore, customize, and embark on a journey to create a digital haven
                     for literature lovers!</p>
                 <a class="btn btn-primary btn-xl" href="#about" style="background-color: #C66D28;">Find Out More</a>
+                <button class="btn btn-primary btn-xl" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" style="background-color: #C66D28;">Historic </button>
             </div>
         </div>
     </div>
@@ -138,55 +148,75 @@
         <a class="btn btn-light btn-xl" href="https://startbootstrap.com/theme/creative/">Shop Now!</a>
     </div>
 </section>
+<div class="offcanvas offcanvas-start bg-dark text-light" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <!-- <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Offcanvas with body scrolling</h5> -->
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <?php
+        foreach ($userReservation as $reservation) {
+        ?>
+            <div class="card  bg-dark my-3" style="width: 18rem;">
+                <div class="card-body ">
+                    <h5 class="card-title "><?= $reservation->title?></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><?= $reservation->author?></h6>
+                    <p class="card-text"><?= $reservation->description ?></p>
+                    <p class="card-text"><?= $reservation->reservation_date.' --- '.$reservation->return_date ?></p>
+                </div>
+            </div>
+        <?php  } ?>
+    </div>
+</div>
 <!-- Contact-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
             <?php
-                foreach ($books as $book) {
-                ?>
-            <div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
-                    </div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder"> <?= $book->getTitle() ?></h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                            </div>
-                            <!-- Product price-->
-                            <span class=""> <?= $book->getGenre() ?></span><br>
-                            <span class=""> """<?= $book->getAuthor() ?>"""</span><br>
-                            <span class="badge text-bg-warning"> <?= $book->getAvailableCopies() ?></span>
+            foreach ($books as $book) {
+            ?>
+                <div class="col mb-5">
+                    <div class="card h-100">
+                        <!-- Sale badge-->
+                        <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale
+                        </div>
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder"> <?= $book->getTitle() ?></h5>
+                                <!-- Product reviews-->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                <!-- Product price-->
+                                <span class=""> <?= $book->getGenre() ?></span><br>
+                                <span class=""> """<?= $book->getAuthor() ?>"""</span><br>
+                                <span class="badge text-bg-warning"> <?= $book->getAvailableCopies() ?></span>
 
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <form method="get" action="book.php" class="ms-5">
+                                <input type="hidden" value="<?= $book->getId() ?>" name="id" />
+                                <input type="submit" value="See" name="see" class="btn btn-outline-dark mt-auto ms-4" />
+                            </form>
                         </div>
                     </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <form method="get" action="book.php" class="ms-5">
-                            <input type="hidden" value="<?= $book->getId() ?>" name="id" />
-                            <input type="submit" value="See" name="see" class="btn btn-outline-dark mt-auto ms-4" />
-                        </form>
-                    </div>
                 </div>
-            </div>
             <?php  } ?>
         </div>
     </div>
 </section>
-<?php 
-    
-    include '../partials/footer.php'
-    ?>
+<?php
+
+include '../partials/footer.php'
+?>

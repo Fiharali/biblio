@@ -6,7 +6,7 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\Reservation;
 
-session_start();
+// session_start();
 
 
 
@@ -20,26 +20,24 @@ session_start();
 class ReservationController
 {
 
-
-
     public function addReservation($description,$reservation_date, $return_date, $user_id, $book_id)
     {
-     
-
-    
         $checkUser = new Reservation($description, $reservation_date,$return_date, $user_id, $book_id);
         $checkUser->createReservation();
 
     }
-
-
-  
-
     public function AllReservation()
     {
 
         $allUsers = new Reservation(null, null,null,null, null);
         return   $allUsers->getAllReservation();
+        // var_dump($allUsers->getAllUsers());
+    }
+
+    public function userReservation($user_id)
+    {
+        $allUsers = new Reservation(null, null,null,$user_id, null);
+        return   $allUsers->getUserReservation();
         // var_dump($allUsers->getAllUsers());
     }
 }
