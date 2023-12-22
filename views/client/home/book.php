@@ -48,8 +48,8 @@ if (isset($_GET['id'])) {
                             <input type='hidden' class="form-control w-50 bg-dark text-light" value="<?=$_GET['id']?>" name="book_id" /> <br>
                             <input type='hidden' class="form-control w-50 bg-dark text-light" value="<?=$_SESSION['id']?>" name="user_id" /> <br>
                             <input type='date' class="form-control w-50 bg-dark text-light"  min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+15 days')); ?>"  value="<?php echo date('Y-m-d', strtotime('+15 days')); ?>" name="return_date" /> <br>
-                            <textarea class="bg-dark text-light " row=30 cols="34" name="description"></textarea><br>
-                            <input type='submit' class="mt-3 p-2 px-4 bg-dark text-light" value="reserve" name="reserve" /> 
+                            <!-- <textarea class="bg-dark text-light " row=30 cols="34" name="description"></textarea><br> -->
+                            <input type='submit' class="mt-3 p-2 px-4 bg-dark text-light" value="reserve"  name="reserve"  <?= $book->available_copies > 0 ? '':'disabled' ?>  /> 
                         </form>
                     <?php
                     }else{
