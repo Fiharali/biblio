@@ -46,7 +46,7 @@ class Reservation
     public function getAllReservation()
     {
 
-        $stmt = $this->db->prepare("select * from  reservation  ");
+        $stmt = $this->db->prepare("SELECT r.* ,u.firstName, b.title,b.id as 'book_id' FROM reservations r INNER join books b on b.id=r.book_id INNER join users u on r.user_id = u.id;");
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $result;
@@ -59,6 +59,18 @@ class Reservation
         $stmt->execute([ $this->user_id]);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
         return $result;
+    }
+
+    public function returnReservation()
+    {
+
+        $stmt2 = $this->db->prepare("update books set available_copies = available_copies+1 where id =?");
+        $stmt2->execute([ $this->book_id]);
+
+        $stmt2 = $this->db->prepare("update reservations set is_returned = 1 where id =?");
+        $stmt2->execute([ $this->user_id]);
+
+       
     }
 }
 

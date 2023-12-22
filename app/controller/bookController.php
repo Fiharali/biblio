@@ -106,6 +106,12 @@ class BookController
         $allBooks = new Book($id, null, null, null, null, null, null, null);
         $allBooks->delete();
     }
+
+    public function search($title)
+    {
+        $allBooks = new Book(null,$title,null,null,null,null,null,null);
+         $allBooks->searchBook();
+    }
 }
 
 
@@ -135,5 +141,11 @@ if (isset($_POST['updateBook'])) {
     extract($_POST);
     $editBook = new BookController();
     $editBook->updateBook($title, $author, $genre, $description, $publication_year, $total_copies, $available_copies,$id);
+    header('location:../../views/admin/books');
+}
+
+if (isset($_GET['searchBook'])) {
+    $editBook = new BookController();
+    $editBook->search($_GET['searchBook']);
     header('location:../../views/admin/books');
 }

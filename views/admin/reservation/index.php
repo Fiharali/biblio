@@ -1,6 +1,5 @@
 <?php
 include  __DIR__ . '/../partials/navbar.php';
-// include  __DIR__ . '/../../../app/controller/bookController.php';
 
 
 include  __DIR__ . '/../../../vendor/autoload.php';
@@ -25,7 +24,7 @@ $reservation = $reservations->AllReservation();
                         <path
                             d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z" />
                     </svg>
-                    <a href="add.php">Add Book</a>
+                    <!-- <a href="add.php">Add Book</a> -->
 
                 </button>
 
@@ -53,19 +52,22 @@ $reservation = $reservations->AllReservation();
                         id
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        title
+                        firstName 
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        author
+                        Title
                     </th>
                     <th scope="col" class="px-6 py-3">
-                        genre
+                        description
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        reservation date
                     </th>
                     <th scope="col" class="px-6 py-3 ">
-                        total_copies
+                    return date
                     </th>
                     <th scope="col" class="px-6 py-3 ">
-                        available_copies
+                        is returned 
                     </th>
                     <th scope="col" class="px-6 py-3 ">
                         Actions
@@ -76,38 +78,38 @@ $reservation = $reservations->AllReservation();
             <tbody>
 
                 <?php
-                foreach ($books as $book) {
+                foreach ($reservation as $reservation) {
                     // var_dump($book->getId());
 
                 ?>
                 <tr
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->getId() ?>
+                        <?= $reservation->id ?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->getTitle() ?>
+                        <?= $reservation->firstName ?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->getAuthor() ?>
+                        <?= $reservation->title ?>
                     </td>
                     <td scope="col" class="px-6 py-3">
-                        <?= $book->getGenre() ?>
+                        <?= $reservation->description ?>
                     </td>
                     <td scope="col" class="px-6 py-3 ">
-                        <?= $book->getTotalCopies() ?>
+                        <?= $reservation->reservation_date ?>
                     </td>
                     <td scope="col" class="px-6 py-3 ">
-                        <?= $book->getAvailableCopies() ?>
+                        <?=  $reservation->return_date  ?>
+                    </td>
+                    <td scope="col" class="px-6 py-3 ">
+                        <?= $reservation->is_returned ? '<span  class="bg-orange-500 p-3" >Yes</span>':'<span  class="bg-green-950 p-3" >No</span>' ?>
                     </td>
                     <td scope="col" class="px-6 py-3 flex gap-3">
-                        <form method="post" action="../../../app/controller/bookController.php">
-                            <input type='hidden' value="<?= $book->getId() ?>" name='id'>
-                            <input type='submit' value="Delete" name="deleteBook" class="bg-red-950 p-3">
-                        </form>
-                        <form class="flex" method="post" action="edit.php">
-                            <input type='hidden' value="<?= $book->getId() ?>" name='id'>
-                            <input type='submit' value="edit" name="editBook" class="bg-red-950 p-3">
+                        <form method="post" action="../../../app/controller/ReservationController.php">
+                            <input type='hidden' value="<?= $reservation->id ?>" name='reservation_id'>
+                            <input type='hidden' value="<?= $reservation->book_id ?>" name='book_id'>
+                            <input type='submit' value="returned" name="returned" class="bg-blue-950 p-3">
                         </form>
                     </td>
                 </tr>

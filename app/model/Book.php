@@ -145,6 +145,15 @@ class Book
         $stmt = $this->db->prepare("delete from books where id = ?");
         $stmt->execute([$this->id]);
     }
+
+    public function searchBook()
+    {
+        $stmt = $this->db->prepare("select *  from books where title like  ?");
+        $searchTerm = '%' . $_GET['searchBook'] . '%';
+        $stmt->execute([$searchTerm]);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+        echo $result;
+    }
 }
 
 

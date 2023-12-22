@@ -6,15 +6,6 @@ include __DIR__ . '/../../vendor/autoload.php';
 
 use app\model\Reservation;
 
-// session_start();
-
-
-
-
-
-
-
-
 
 
 class ReservationController
@@ -40,6 +31,13 @@ class ReservationController
         return   $allUsers->getUserReservation();
         // var_dump($allUsers->getAllUsers());
     }
+
+    public function returnBook($reservation_id,$book_id)
+    {
+        $allUsers = new Reservation(null, null,null,$book_id, $reservation_id);
+        $allUsers->returnReservation();
+
+    }
 }
 
 
@@ -51,16 +49,14 @@ if (isset($_POST['reserve'])) {
     $reservation_date=date('Y-m-d');
     $registerController = new ReservationController();
     $registerController->addReservation($description,$reservation_date, $return_date, $user_id, $book_id);
-    echo 'hello';
+    // echo 'hello';
     header("location:../../views/client/home/index.php");
 }
 
-// if (isset($_POST['login'])) {
-//     extract($_POST);
-//     $registerController = new ReservationController();
-//     $registerController->AllReservation();
-// }
+if (isset($_POST['returned'])) {
+    extract($_POST);
+    $registerController = new ReservationController();
+    $registerController->returnBook( $book_id, $reservation_id);
+    header("location:../../views/admin/reservation/index.php");
+}
 
-
-// $getAllUsers = new ReservationController();
-// $registerController->AllUsers();
